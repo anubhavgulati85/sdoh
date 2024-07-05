@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clinical Notes Form</title>
+</head>
+<body>
+    <h1>Enter Clinical Details</h1>
+    <form action="/submit" method="post">
+        <label for="first_name">First Name:</label><br>
+        <input type="text" id="first_name" name="first_name"><br>
+        <label for="last_name">Last Name:</label><br>
+        <input type="text" id="last_name" name="last_name"><br>
+        <label for="gender">Gender:</label><br>
+        <input type="text" id="gender" name="gender"><br>
+        <label for="state">State:</label><br>
+        <input type="text" id="state" name="state"><br>
+        <label for="clinical_notes">Clinical Notes:</label><br>
+        <textarea id="clinical_notes" name="clinical_notes"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
