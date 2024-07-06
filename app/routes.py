@@ -2,13 +2,38 @@
 
 from flask import Blueprint,render_template, request, redirect, url_for, jsonify
 #from app import app, db
-from app.models import db,User
+#from app.models import db,User
 from app.utils import extract_sdoh_keywords
 import pandas as pd
 import joblib
 from sklearn.preprocessing import LabelEncoder
 
 bp = Blueprint('main', __name__)
+
+# Mapping dictionary for genders
+gender_map = {
+    'Male': 0,
+    'Female': 1
+}
+
+# Function to convert gender to numerical value
+def convert_gender(gender):
+    return gender_map.get(gender, -1)  # Return -1 if gender is not found in the mapping
+
+# Mapping dictionary for categories
+category_map = {
+    'housing': 1,
+    'income': 2,
+    'education': 3,
+    'employment': 4,
+    'nutrition': 5,
+    'transportation': 6
+}
+
+# Function to convert categories list to numeric values
+def convert_categories(categories_list):
+    return [category_map[category] for category in categories_list if category in category_map]
+
 
 @bp.route('/')
 def index():
@@ -29,9 +54,15 @@ def submit():
     #db.session.add(new_user)
     #db.session.commit()
 
+    numerical_gender = convert_gender(gender)
+    print(f"Gender: {gender} | Numerical Value: {numerical_gender}")
+
     # Extract SDOH keywords
     sdoh_keywords = extract_sdoh_keywords(clinical_notes)
-
+    print(sdoh_keywords)
+    # Get the numeric values for the subset of categories
+    numeric_values = convert_categories(sdoh_keywords)
+    print(numeric_values)
     # Load the pre-trained model and scaler
     model = joblib.load('./app/rf_model.pkl')
     scaler = joblib.load('./app/scaler.pkl')
