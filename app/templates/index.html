@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Predict Health Outcomes with SDOH</h1>
-    <form id="sdohForm" method="POST" action="/submit">
+    <form id="sdohForm"  method="POST" action="/submit">
         First Name:
         <input type="text" id="first_name" name="first_name" size="20">
        Last Name:
@@ -185,8 +185,6 @@
             .then(data => {
                 document.getElementById('prediction').innerText = 'Prediction: ' + data.prediction;
             });
-            console.log(JSON.stringify(formData))
-            
         }
     </script>
 </body>
